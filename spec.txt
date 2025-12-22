@@ -1,0 +1,36 @@
+Summary
+
+We want to have a shell script that can use the "blueutil" command-line utility to automatically
+connect to bluetooth keyboards, mouse, and other devices.
+
+The "blueutil.txt" file contains a summary of how to use the "blueutil" utility
+
+Details
+
+* This should be a shell script
+* The list of target devices (to connect to) should be stored in an array so that it can be
+modified later by the user to add additional devices
+* By default, the script should connect to keyboard and mouse
+
+When invoked, the script should
+
+* make a list of all paired devices
+* If the target device(s) is not connected, it should attempt to connect to it
+* Print out the final status of the connection
+
+Other items
+
+* always invoke "blueutil" so that the output format is in JSON
+* check that all dependencies (such as blueutil and jq) are installed and available on the path
+* The script should also support a "debug" option. When invoked with the debug option, 
+script should also print the list of all paired devices along with their connection status
+
+* The script should use colored out (RED/GREEN) and emojis (check mark etc) appropriately
+
+
+Testing
+
+* Run the blueutil tool directly to list all the paired devices
+* use the blueutil took directly to disconnect the keyboard and/or mouse
+* run the script to connect to the devices
+* Then run the blueutil tool directly to confirm that both keyboard and mouse are connected

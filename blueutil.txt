@@ -1,0 +1,70 @@
+blueutil v2.13.0
+
+Usage:
+  blueutil [options]
+
+Without options outputs current state
+
+    -p, --power               output power state as 1 or 0
+    -p, --power STATE         set power state
+    -d, --discoverable        output discoverable state as 1 or 0
+    -d, --discoverable STATE  set discoverable state
+
+        --favourites, --favorites
+                              list favourite devices; returns empty list starting with macOS 12/Monterey
+        --inquiry [T]         inquiry devices in range, 10 seconds duration by default excluding time for name updates
+        --paired              list paired devices
+        --recent [N]          list recently used devices, 10 by default, 0 to list all; returns empty list starting with macOS 12/Monterey
+        --connected           list connected devices
+
+        --info ID             show information about device
+        --is-connected ID     connected state of device as 1 or 0
+        --connect ID          create a connection to device
+        --disconnect ID       close the connection to device
+        --pair ID [PIN]       pair with device, optional PIN of up to 16 characters will be used instead of interactive input if requested in specific pair mode
+        --unpair ID           EXPERIMENTAL unpair the device
+        --add-favourite ID, --add-favorite ID
+                              add to favourites; does nothing starting with macOS 12/Monterey
+        --remove-favourite ID, --remove-favorite ID
+                              remove from favourites; does nothing starting with macOS 12/Monterey
+
+        --format FORMAT       change output format of info and all listing commands
+
+        --wait-connect ID [TIMEOUT]
+                              EXPERIMENTAL wait for device to connect
+        --wait-disconnect ID [TIMEOUT]
+                              EXPERIMENTAL wait for device to disconnect
+        --wait-rssi ID OP VALUE [PERIOD [TIMEOUT]]
+                              EXPERIMENTAL wait for device RSSI value which is 0 for golden range, -129 if it cannot be read (e.g. device is disconnected)
+
+    -h, --help                this help
+    -v, --version             show version
+
+STATE can be one of: 1, on, 0, off, toggle
+ID can be either address in form xxxxxxxxxxxx, xx-xx-xx-xx-xx-xx or xx:xx:xx:xx:xx:xx, or name of device to search in paired or recent devices
+OP can be one of: >, >=, <, <=, =, !=; or equivalents: gt, ge, lt, le, eq, ne
+PERIOD is in seconds, defaults to 1
+TIMEOUT is in seconds, default value 0 doesn't add timeout
+FORMAT can be one of:
+  default - human readable text output not intended for consumption by scripts
+  new-default - human readable comma separated key-value pairs (EXPERIMENTAL, THE BEHAVIOUR MAY CHANGE)
+  json - compact JSON
+  json-pretty - pretty printed JSON
+
+Favourite devices and recent access date are not stored starting with macOS 12/Monterey, current time is returned for recent access date by framework instead.
+
+Due to possible problems, blueutil will refuse to run as root user (see https://github.com/toy/blueutil/issues/41).
+Use environment variable BLUEUTIL_ALLOW_ROOT=1 to override (sudo BLUEUTIL_ALLOW_ROOT=1 blueutil …).
+
+Environment variables:
+  BLUEUTIL_USE_SYSTEM_PROFILER=1  EXPERIMENTAL: use system_profiler instead of IOBluetoothDevice API for paired device queries
+
+Exit codes:
+   0 Success
+   1 General failure
+  64 Wrong usage like missing or unexpected arguments, wrong parameters
+  69 Bluetooth or interface not available
+  70 Internal error
+  71 System error like shortage of memory
+  75 Timeout error
+ 134 Abort signal may indicate absence of access to Bluetooth API
