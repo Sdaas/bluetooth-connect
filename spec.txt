@@ -24,7 +24,6 @@ Other items
 * check that all dependencies (such as blueutil and jq) are installed and available on the path
 * The script should also support a "debug" option. When invoked with the debug option, 
 script should also print the list of all paired devices along with their connection status
-
 * The script should use colored out (RED/GREEN) and emojis (check mark etc) appropriately
 
 
