@@ -1,4 +1,5 @@
-blueutil v2.13.0
+Help content of blueutil v2.13.0
+================================
 
 Usage:
   blueutil [options]
